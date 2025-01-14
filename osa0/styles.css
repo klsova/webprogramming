@@ -1,0 +1,28 @@
+ body {
+    background-color: rgb(146, 199, 255)
+
+ }
+
+ a {
+    color: green;
+ }
+
+ a:hover {
+    color: orange;
+    text-decoration-style: double;
+ }
+
+ img {
+    width: 300px;
+    height: 300px;
+ }
+
+ #container {
+    display: flex;
+    width: 60%;
+    justify-content: space-between;
+ }
+
+ #container div {
+    background-color: green;
+ }
