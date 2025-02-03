@@ -1,5 +1,4 @@
 const App = () => {
-  const Course = ({course}) => {
     const course = {
       name: "Half Stack application development",
       id: 1,
@@ -22,37 +21,44 @@ const App = () => {
     ],
     };
 
-    const Header = ({course}) => {
-      return (
-        <div>
-          <h1>{course}</h1>
-        </div>
-      )
-    }
-  
-    const Part = ({part}) => {
-      return (
-        <p>
-          {part.name} {part.exercises}
-        </p>
-        )
-    }
-  
-    const Content = ({parts}) => {
-      return (
-      <div>
-        <Part part={parts[0]} />
-        <Part part={parts[1]} />
-        <Part part={parts[2]} />
-      </div>
-      )
-    }
-  }
-  
+
   return (
     <div>
       <Course course={course} />
     </div>
+  )
+}
+
+const Course = ({course}) => {
+  return (
+    <div>
+      <Header name={course.name}/>
+      <Content parts={course.parts}/>
+    </div>
+  )
+}
+
+const Header = ({name}) => {
+  return (
+    <h1>{name}</h1>
+  )
+}
+
+const Content = ({parts}) => {
+  return (
+    <div>
+      {parts.map(part => (
+        <Part key={part.id} part={part} />
+      ))}
+    </div>
+  )
+}
+
+const Part = ({part}) => {
+  return (
+    <p>
+      {part.name} {part.exercises}
+    </p>
   )
 }
 
