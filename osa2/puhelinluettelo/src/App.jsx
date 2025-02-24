@@ -7,7 +7,7 @@ const PersonForm = ({
   newNumber,
   addName,
   addNumber,
-  handleSubmit
+  handleSubmit,
 }) => {
   return (
     <form onSubmit={handleSubmit}>
@@ -24,20 +24,21 @@ const PersonForm = ({
   )
 }
 
-const Persons = ({ persons }) => {
+const Persons = ({ persons, handleDelete }) => {
   return (
     <ul>
-      {persons.map((person, index) => (
-        <Person key={index} person={person} />
+      {persons.map((person) => (
+        <Person key={person.id} person={person} handleDelete={handleDelete}/>
       ))}
     </ul>
   )
 }
 
-const Person = ({ person }) => {
+const Person = ({ person, handleDelete }) => {
   return (
     <li>
     {person.name} {person.number}
+    <button onClick={() => handleDelete(person.id)}>delete</button>
   </li>
   )
 }
@@ -77,7 +78,16 @@ const App = () => {
         setNewName("")
         setNewNumber("")
       })
+  }
 
+  const handleDelete = (id) => {
+    const confirmDelete = window.confirm('Are you sure you want to delete this contact?')
+
+    if (confirmDelete) {
+      service.delete(id).then(() => {
+        setPersons(persons.filter((person) => person.id !== id))
+      })
+    }
   }
 
   return (
@@ -91,7 +101,7 @@ const App = () => {
         handleSubmit={handleSubmit}
       />
       <h2>Numbers</h2>
-      <Persons persons={persons} />
+      <Persons persons={persons} handleDelete={handleDelete}/>
     </div>
   )
 }
